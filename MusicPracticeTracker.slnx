@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="InstrumentService/InstrumentService.csproj" />
+  <Project Path="PracticeService/PracticeService.csproj" />
+  <Project Path="ProgressService/ProgressService.csproj" />
+</Solution>

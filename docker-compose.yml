@@ -1,0 +1,37 @@
+services:
+  instrumentservice:
+    build:
+      context: .
+      dockerfile: InstrumentService/Dockerfile
+    ports:
+      - "127.0.0.1:5001:8080"
+    environment:
+      ConnectionStrings__InstrumentsDatabase: "Data Source=/data/instruments.db"
+    volumes:
+      - instrument-data:/data
+
+  practiceservice:
+    build:
+      context: .
+      dockerfile: PracticeService/Dockerfile
+    ports:
+      - "127.0.0.1:5002:8080"
+    environment:
+      ConnectionStrings__PracticeDatabase: "Data Source=/data/practice.db"
+    volumes:
+      - practice-data:/data
+
+  progressservice:
+    build:
+      context: .
+      dockerfile: ProgressService/Dockerfile
+    ports:
+      - "127.0.0.1:5003:8080"
+    environment:
+      PracticeService__BaseUrl: http://practiceservice:8080/
+    depends_on:
+      - practiceservice
+
+volumes:
+  instrument-data:
+  practice-data:
